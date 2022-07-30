@@ -6,15 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "check-types": "tsc --pretty --noEmit",
+    "pre-commit": "npm run lint && npm run prettier && npm run check-types",
+    "test-all": "npm run lint && npm run prettier && npm run check-types && npm run build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "antd": "^4.22.2",
     "autoprefixer": "^10.4.7",
+    "i18next": "^21.8.15",
+    "i18next-browser-languagedetector": "^6.1.4",
     "next": "12.2.3",
     "postcss": "^8.4.14",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-query": "^4.0.0",
+    "react-redux": "^8.0.2",
     "sass": "^1.54.0",
     "tailwindcss": "^3.1.6"
   },

@@ -1,8 +1,13 @@
-import '../styles/globals.css'
+import {Provider} from "react-redux";
 import type { AppProps } from 'next/app'
+import "tailwindcss/tailwind.css";
+import "antd/dist/antd.css";
+import '../styles/globals.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({
+ Component,
+ pageProps,
+ router,
+}: AppProps): JSX.Element {
   return <Component {...pageProps} />
 }
-
-export default MyApp
