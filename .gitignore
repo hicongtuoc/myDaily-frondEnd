@@ -34,6 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
+# local env files
+.env.development.local
+.env.test.local
+.env.production.local
+/tsconfig.tsbuildinfo
+
 # lock files
 yarn.lock
 package-lock.json
