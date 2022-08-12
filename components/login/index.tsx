@@ -1,6 +1,8 @@
-import style from './index.module.scss'
-export  default function Login() {
-    return <div>
-        <h2 className={style.longledang}>Login nè</h2>
+import "./index.scss";
+export default function Login() {
+  return (
+    <div>
+      <h2 className="longledang">Login nè</h2>
     </div>
+  );
 }

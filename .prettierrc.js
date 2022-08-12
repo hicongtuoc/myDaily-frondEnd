@@ -1,4 +1,4 @@
 module.exports = {
-    quoteProps: "consistent",
-    bracketSpacing: false,
+  quoteProps: "consistent",
+  bracketSpacing: false,
 };
