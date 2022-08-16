@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "analyze": "cross-env ANALYZE=true npm run build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
@@ -18,8 +19,11 @@
   "dependencies": {
     "antd": "^4.22.2",
     "autoprefixer": "^10.4.7",
+    "cross-env": "^7.0.3",
+    "firebase": "^9.9.2",
     "i18next": "^21.8.15",
     "i18next-browser-languagedetector": "^6.1.4",
+    "icomoon-react": "^3.0.0",
     "next": "12.2.3",
     "postcss": "^8.4.14",
     "react": "18.2.0",
