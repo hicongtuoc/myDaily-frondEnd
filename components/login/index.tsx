@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../utils/firebase/firebase";
+import Icon from "../../utils/icon/Icon";
 
 import "./index.scss";
 
@@ -26,6 +27,7 @@ export default function Login() {
 
   return (
     <div className="lld-login">
+      <Icon icon="Google" className="" size={24} />
       <Form
         name="basic"
         labelCol={{span: 8}}
