@@ -17,6 +17,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@ant-design/plots": "^1.2.2",
     "antd": "^4.22.2",
     "autoprefixer": "^10.4.7",

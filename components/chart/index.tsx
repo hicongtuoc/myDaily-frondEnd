@@ -20,7 +20,7 @@ export default function ChartData() {
       });
   };
   const config = {
-    data,
+    data: data,
     isGroup: true,
     xField: '月份',
     yField: '月均降雨量',
@@ -42,11 +42,22 @@ export default function ChartData() {
     },
   };
 
-  return (
-    <div className="w-10/12">
-      <h1 className="text-center">Biểu đồ</h1>
-      <Column {...config} />
-    </div>
-  );
-}
+  const LabelPlot = {
+    position: 'middle',
+    layout: [
+      {
+        type: 'interval-adjust-position',
+      },
+      {
+        type: 'interval-hide-overlap',
+      },
+      {
+        type: 'adjust-color',
+      },
+    ],
+  };
 
+  return <div>
+    <Column data={data} xField={"Date"} yField={"Time"}  seriesField={'name'} dodgePadding={2} />
+  </div>;
+}
