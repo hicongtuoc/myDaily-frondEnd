@@ -27,7 +27,7 @@ export default function ListSenser() {
   ];
 
   return (
-    <div className="w-1/4 mx-8">
+    <div className="w-1/4 mx-8 item-sensor">
       <List
         itemLayout="horizontal"
         dataSource={data}

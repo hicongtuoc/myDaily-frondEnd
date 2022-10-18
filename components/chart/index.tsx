@@ -50,7 +50,7 @@ export default function ChartData() {
     },
   ];
 
-  return <div className="w-10/12">
+  return <div className="w-10/12 item-chart">
     <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}

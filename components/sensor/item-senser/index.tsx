@@ -1,5 +1,7 @@
 import {Dropdown, Modal, Menu} from "antd";
+import notification, {NotificationPlacement} from "antd/lib/notification";
 import {useState} from "react";
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface ItemSenserprops {
   title: string;
@@ -9,6 +11,34 @@ interface ItemSenserprops {
 
 export default function ItemSenser(props: ItemSenserprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [api] = notification.useNotification();
+  const { confirm } = Modal;
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotificationWithIcon = (type: NotificationType) => {
+    notification[type]({
+      message: "Chỉnh sửa thành công",
+      description: "DONE",
+    });
+  };
+
+  const showDeleteConfirm = () => {
+    confirm({
+      title: "Xóa sensor",
+      icon: <ExclamationCircleOutlined />,
+      content: "Bạn chắc chứ?",
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        openNotificationWithIcon("success");
+      },
+      onCancel() {
+        console.log("Cancel");
+      },
+    });
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -16,6 +46,7 @@ export default function ItemSenser(props: ItemSenserprops) {
 
   const handleOk = () => {
     setIsModalOpen(false);
+    openNotificationWithIcon("success");
   };
 
   const handleCancel = () => {
@@ -31,7 +62,7 @@ export default function ItemSenser(props: ItemSenserprops) {
         },
         {
           key: "2",
-          label: <span onClick={showModal}>Delete Sensor</span>,
+          label: <span onClick={showDeleteConfirm}>Delete Sensor</span>,
         },
       ]}
     />
