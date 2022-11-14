@@ -1,42 +1,61 @@
 import ItemSenser from "./item-senser";
-import {List} from "antd";
+import {Button, List} from "antd";
+import { useEffect, useState } from "react";
+import { getapi, getListSensor } from "../api/gateway";
+import { SensorProps } from "../../pages";
+import io from "socket.io-client";
 
-export default function ListSenser() {
+interface ListSensorProps {
+  listSensor?: SensorProps[];
+  handleIdSensor: (id: string) => void
+}
 
-  const data = [
-    {
-      title: 'C02',
-      time_update: '17:20:20',
-      time_reset: '10p',
-    },
-    {
-      title: 'H20',
-      time_update: '17:20:20',
-      time_reset: '10p',
-    },
-    {
-      title: 'hi',
-      time_update: '17:20:20',
-      time_reset: '10p',
-    },
-    {
-      title: 'hello',
-      time_update: '17:20:20',
-      time_reset: '10p',
-    },
-  ];
+// const socket = io.connect("http://localhost:3001");
+
+export default function ListSenser(props: ListSensorProps) {
+
+  // const [isConnected, setIsConnected] = useState(socket.connected);
+  const [lastPong, setLastPong] = useState(null);
+
+  // useEffect(() => {
+  //   socket.on('connect', () => {
+  //     setIsConnected(true);
+  //   });
+
+  //   socket.on('disconnect', () => {
+  //     setIsConnected(false);
+  //   });
+
+  //   socket.on('event', (data) => {
+  //     console.log('data Socket:', data);
+  //   });
+
+  //   return () => {
+  //     socket.off('connect');
+  //     socket.off('disconnect');
+  //     socket.off('event');
+  //   };
+  // }, []);
+
+  // const sendPing = () => {
+  //   socket.emit('ping');
+  // }
 
   return (
     <div className="w-1/4 mx-8 item-sensor">
       <List
         itemLayout="horizontal"
-        dataSource={data}
+        dataSource={props.listSensor}
         renderItem={(item) => (
           <List.Item>
-            <ItemSenser title={item.title} time_reset={item.time_reset} time_update={item.time_update}/>
+            <ItemSenser name={item.name} id={item.id} handleIdSensor={props.handleIdSensor}/>
           </List.Item>
         )}
       />
+      {/* <p>Connected: { '' + isConnected }</p>
+      <p>Last pong: { lastPong || '-' }</p>
+      <button onClick={ sendPing }>Send ping</button> */}
+      <Button type="primary">Scan Sensor</Button>
     </div>
   );
 }

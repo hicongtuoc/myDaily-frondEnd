@@ -4,9 +4,11 @@ import {useState} from "react";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface ItemSenserprops {
-  title: string;
-  time_update: string;
-  time_reset: string;
+  id: string;
+  name: string;
+  handleIdSensor: (id: string) => void
+  // time_update: string;
+  // time_reset: string;
 }
 
 export default function ItemSenser(props: ItemSenserprops) {
@@ -69,7 +71,7 @@ export default function ItemSenser(props: ItemSenserprops) {
   );
 
   return (
-    <div className="flex w-full mb-4">
+    <div className="flex w-full mb-4 hover:bg-sky-400">
       <Modal
         title="Edit Sensor"
         visible={isModalOpen}
@@ -80,13 +82,13 @@ export default function ItemSenser(props: ItemSenserprops) {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Modal>
-      <div className="w-10/12">
-        <h1>{props.title}</h1>
+      <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
+        <h1>{props.name}</h1>
         <span>Cập nhập gần nhất: </span>
-        <span>{props.time_update}</span>
+        <span>Time Update</span>
         <div>
           <span>Thời gian cập nhập: </span>
-          <span>{props.time_reset}</span>
+          <span>Time reset</span>
         </div>
       </div>
       <div className="ml-3">

@@ -2,10 +2,55 @@ import type {NextPage} from "next";
 import Head from "next/head";
 import {Button} from "antd";
 import ListSenser from "../components/sensor";
-import ChartData from "../components/chart";
+import ChartData, { ItemValueSensor } from "../components/chart";
 import ControlSensor from "../components/sensor/control-sensor";
+import {useCallback, useEffect, useState} from "react";
+import {getapi} from "../components/api/gateway";
+
+export interface SensorProps {
+  id: string;
+  name: string;
+}
 
 const Home: NextPage = () => {
+  const [listSensor, setListSensor] = useState<SensorProps[]>();
+  const [idSensor, setIdSensor] = useState('1');
+  const [dataSensor, setDataSensor] = useState<ItemValueSensor[]>();
+
+  const getListSensor = async () => {
+    const data = getapi();
+    setListSensor(await data);
+  };
+
+  const handleIdSensor = (id: string) => {
+    console.log('id ne:', id);
+    
+    setIdSensor(id);
+  };
+
+  const getDataSensor = useCallback(() => {
+    const dataSensor = fetch(
+      "https://tkdt.hidro.dev/get_data_by_id?" +
+        new URLSearchParams({
+          id: idSensor,
+        })
+    ).then(response => response.json())
+ 
+    // Displaying results to console
+    .then(json => setDataSensor(json.data));;
+    
+  },[idSensor]);
+
+  useEffect(() => {
+    getDataSensor();
+  },[getDataSensor])
+
+  useEffect(() => {
+    getListSensor();
+  }, []);
+
+  console.log('dataSensor', dataSensor);
+
   return (
     <div>
       <Head>
@@ -14,11 +59,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full">
-        <h1 className="text-center my-4">Gite Way 1</h1>
+        <h1 className="text-center my-4" onClick={getDataSensor}>Gite Way 1</h1>
         <div className="body-gateway">
           <div className="item-gateway">
-            <ListSenser />
-            <ChartData />
+            <ListSenser listSensor={listSensor} handleIdSensor={handleIdSensor}/>
+            <ChartData dataSensor={dataSensor}/>
           </div>
           <ControlSensor />
         </div>
