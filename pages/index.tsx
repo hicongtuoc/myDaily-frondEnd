@@ -60,9 +60,9 @@ const Home: NextPage = () => {
     getDataSensor();
   }, [getDataSensor]);
 
-  useEffect(() => {
-    getListSensor();
-  }, [getListSensor]);
+  // useEffect(() => {
+  //   getListSensor();
+  // }, [getListSensor]);
 
   return (
     <div>
