@@ -73,6 +73,7 @@ export default function ListSenser(props: ListSensorProps) {
   const handSubmit = () => {
     deleteSensor();
     setTimeout(() => {
+      props.handleUpdateListSensor();
       console.log('Call Api');
     },10000)
   }
