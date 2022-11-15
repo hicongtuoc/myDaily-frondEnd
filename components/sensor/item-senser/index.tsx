@@ -61,7 +61,9 @@ export default function ItemSenser(props: ItemSenserprops) {
       onOk() {
         deleteSensor();
         openNotificationWithIcon("success");
-        props.handleUpdateListSensor();
+        setTimeout(() => {
+          props.handleUpdateListSensor();
+        },1000)
       },
       onCancel() {
         console.log("Cancel");
