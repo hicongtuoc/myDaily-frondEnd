@@ -1,12 +1,13 @@
-import {Dropdown, Modal, Menu} from "antd";
+import {Dropdown, Modal, Menu, Input} from "antd";
 import notification, {NotificationPlacement} from "antd/lib/notification";
-import {useState} from "react";
+import {useCallback, useId, useState} from "react";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
 interface ItemSenserprops {
   id: string;
   name: string;
-  handleIdSensor: (id: string) => void
+  handleIdSensor: (id: string) => void;
+  handleUpdateListSensor: () => void;
   // time_update: string;
   // time_reset: string;
 }
@@ -15,6 +16,8 @@ export default function ItemSenser(props: ItemSenserprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [api] = notification.useNotification();
   const { confirm } = Modal;
+  const id = useId();
+  const [input, setInput] = useState('');
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -25,6 +28,28 @@ export default function ItemSenser(props: ItemSenserprops) {
     });
   };
 
+  const data = {
+    "id_sensor": props.id,
+    "delete": 0
+  };
+
+  const deleteSensor = useCallback(() => {
+    fetch('https://tkdt.hidro.dev/delete_sensor', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }, []);
+
   const showDeleteConfirm = () => {
     confirm({
       title: "Xóa sensor",
@@ -34,7 +59,9 @@ export default function ItemSenser(props: ItemSenserprops) {
       okType: "danger",
       cancelText: "No",
       onOk() {
+        deleteSensor();
         openNotificationWithIcon("success");
+        props.handleUpdateListSensor();
       },
       onCancel() {
         console.log("Cancel");
@@ -78,9 +105,8 @@ export default function ItemSenser(props: ItemSenserprops) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <label htmlFor={id}>Please specify:</label>
+        <input id={id} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)}/>
       </Modal>
       <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
         <h1>{props.name}</h1>

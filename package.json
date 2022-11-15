@@ -17,6 +17,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/socket.io": "^3.0.2",
     "antd": "^4.22.2",
     "autoprefixer": "^10.4.7",
     "cross-env": "^7.0.3",
