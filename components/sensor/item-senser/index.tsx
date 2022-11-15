@@ -17,7 +17,7 @@ export default function ItemSenser(props: ItemSenserprops) {
   const [api] = notification.useNotification();
   const { confirm } = Modal;
   const id = useId();
-  const [input, setInput] = useState('');
+  const [inputData, setInput] = useState('');
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -73,7 +73,41 @@ export default function ItemSenser(props: ItemSenserprops) {
     setIsModalOpen(true);
   };
 
+  const dataUpdate = {
+    "id_sensor": props.id,
+    "set_time": inputData,
+  };
+
+  const updateSensor = useCallback(() => {
+    // const input = document.getElementById('gitetway').value;
+
+    // input?.addEventListener('input', event => {
+    //   // 👇️ inline type assertion
+    //   const result = (event.target as HTMLInputElement).value;
+    //   console.log(result)
+    // });
+
+    fetch('https://tkdt.hidro.dev/set_time', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify( {
+        "id_sensor": props.id,
+        "set_time": inputData,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }, [inputData]);
+
   const handleOk = () => {
+    updateSensor();
     setIsModalOpen(false);
     openNotificationWithIcon("success");
   };
@@ -105,8 +139,8 @@ export default function ItemSenser(props: ItemSenserprops) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <label htmlFor={id}>Please specify:</label>
-        <input id={id} value={input} onInput={e => setInput((e.target as HTMLInputElement).value)}/>
+        <label htmlFor='gitetway'>SetTime:</label>
+        <input id='gitetway' value={inputData} onInput={e => setInput((e.target as HTMLInputElement).value)} className='ml-2 border-solid border-2 border-sky-500'/>
       </Modal>
       <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
         <h1>{props.name}</h1>
