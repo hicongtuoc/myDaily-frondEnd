@@ -118,6 +118,13 @@ export default function ItemSenser(props: ItemSenserprops) {
     setIsModalOpen(false);
   };
 
+  const handlePin = () => {
+    if(Number(props.id) === 1) return 68;
+    if(Number(props.id) === 2) return 56;
+    if(Number(props.id) === 3) return 47;
+    
+  };
+
   const menu = (
     <Menu
       items={[
@@ -147,7 +154,7 @@ export default function ItemSenser(props: ItemSenserprops) {
       <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
         <h1>{props.name}</h1>
         <span>Pin: </span>
-        <span>57%</span>
+        <span>{handlePin()}%</span>
         {/* <div>
           <span>Thời gian cập nhập: </span>
           <span>Time reset</span>
