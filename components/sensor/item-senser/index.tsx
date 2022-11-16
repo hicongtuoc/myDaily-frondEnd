@@ -2,6 +2,7 @@ import {Dropdown, Modal, Menu, Input} from "antd";
 import notification, {NotificationPlacement} from "antd/lib/notification";
 import {useCallback, useId, useState} from "react";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import './index.scss';
 
 interface ItemSenserprops {
   id: string;
@@ -141,7 +142,7 @@ export default function ItemSenser(props: ItemSenserprops) {
   );
 
   return (
-    <div className="flex w-full mb-4 hover:bg-sky-400">
+    <div className="flex w-full mb-4 p-4 item-sensor-long">
       <Modal
         title="Edit Sensor"
         visible={isModalOpen}
