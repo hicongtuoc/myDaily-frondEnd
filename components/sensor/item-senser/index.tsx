@@ -146,12 +146,12 @@ export default function ItemSenser(props: ItemSenserprops) {
       </Modal>
       <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
         <h1>{props.name}</h1>
-        <span>Cập nhập gần nhất: </span>
-        <span>Time Update</span>
-        <div>
+        <span>Pin: </span>
+        <span>57%</span>
+        {/* <div>
           <span>Thời gian cập nhập: </span>
           <span>Time reset</span>
-        </div>
+        </div> */}
       </div>
       <div className="ml-3">
         <Dropdown

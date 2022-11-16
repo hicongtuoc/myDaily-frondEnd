@@ -55,7 +55,7 @@ const Home: NextPage = () => {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [idSensor]);
+  }, [idSensor,listSensor]);
 
   useEffect(() => {
     getDataSensor();
