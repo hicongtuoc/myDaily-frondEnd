@@ -1,0 +1,15 @@
+.list-control-sensor {
+    display: flex;
+    .item-control-sensor {
+        width: 33.33%;
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid rgba(230, 229, 242, 0.811762);
+        border-radius: 25px;
+        padding: 16px;
+        margin-left: 16px;
+        .status,.name-sensor {
+            margin-left: 10px;
+        }
+    }
+}

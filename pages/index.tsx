@@ -79,6 +79,7 @@ const Home: NextPage = () => {
         >
           Monitoring System in Lora Network
         </h1>
+        <div>Sensor</div>
         <div className="body-gateway">
           <div className="item-gateway">
             <ListSenser
@@ -86,9 +87,11 @@ const Home: NextPage = () => {
               listSensor={listSensor}
               handleIdSensor={handleIdSensor}
             />
-            <ChartData dataSensor={dataSensor} />
+            <div className="w-10/12">
+              <ControlSensor />
+              <ChartData dataSensor={dataSensor} />
+            </div>
           </div>
-          <ControlSensor />
         </div>
       </div>
     </div>

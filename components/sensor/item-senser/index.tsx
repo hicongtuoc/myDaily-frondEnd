@@ -1,8 +1,8 @@
 import {Dropdown, Modal, Menu, Input} from "antd";
 import notification, {NotificationPlacement} from "antd/lib/notification";
 import {useCallback, useId, useState} from "react";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import './index.scss';
+import {ExclamationCircleOutlined} from "@ant-design/icons";
+import "./index.scss";
 
 interface ItemSenserprops {
   id: string;
@@ -16,9 +16,9 @@ interface ItemSenserprops {
 export default function ItemSenser(props: ItemSenserprops) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [api] = notification.useNotification();
-  const { confirm } = Modal;
+  const {confirm} = Modal;
   const id = useId();
-  const [inputData, setInput] = useState('');
+  const [inputData, setInput] = useState("");
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -30,26 +30,26 @@ export default function ItemSenser(props: ItemSenserprops) {
   };
 
   const data = {
-    "id_sensor": props.id,
-    "delete": 0
+    id_sensor: props.id,
+    delete: 0,
   };
 
   const deleteSensor = useCallback(() => {
-    fetch('https://tkdt.hidro.dev/delete_sensor', {
-      method: 'POST', // or 'PUT'
+    fetch("https://tkdt.hidro.dev/delete_sensor", {
+      method: "POST", // or 'PUT'
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        console.log("Success:", data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-    }, []);
+  }, []);
 
   const showDeleteConfirm = () => {
     confirm({
@@ -64,7 +64,7 @@ export default function ItemSenser(props: ItemSenserprops) {
         openNotificationWithIcon("success");
         setTimeout(() => {
           props.handleUpdateListSensor();
-        },1000)
+        }, 1000);
       },
       onCancel() {
         console.log("Cancel");
@@ -77,8 +77,8 @@ export default function ItemSenser(props: ItemSenserprops) {
   };
 
   const dataUpdate = {
-    "id_sensor": props.id,
-    "set_time": inputData,
+    id_sensor: props.id,
+    set_time: inputData,
   };
 
   const updateSensor = useCallback(() => {
@@ -90,24 +90,24 @@ export default function ItemSenser(props: ItemSenserprops) {
     //   console.log(result)
     // });
 
-    fetch('https://tkdt.hidro.dev/set_time', {
-      method: 'POST', // or 'PUT'
+    fetch("https://tkdt.hidro.dev/set_time", {
+      method: "POST", // or 'PUT'
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify( {
-        "id_sensor": props.id,
-        "set_time": inputData,
+      body: JSON.stringify({
+        id_sensor: props.id,
+        set_time: inputData,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        console.log("Success:", data);
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-    }, [inputData]);
+  }, [inputData]);
 
   const handleOk = () => {
     updateSensor();
@@ -120,10 +120,9 @@ export default function ItemSenser(props: ItemSenserprops) {
   };
 
   const handlePin = () => {
-    if(Number(props.id) === 1) return 68;
-    if(Number(props.id) === 2) return 56;
-    if(Number(props.id) === 3) return 47;
-    
+    if (Number(props.id) === 1) return 68;
+    if (Number(props.id) === 2) return 56;
+    if (Number(props.id) === 3) return 47;
   };
 
   const menu = (
@@ -149,13 +148,52 @@ export default function ItemSenser(props: ItemSenserprops) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <label htmlFor='gitetway'>SetTime:</label>
-        <input id='gitetway' value={inputData} onInput={e => setInput((e.target as HTMLInputElement).value)} className='ml-2 border-solid border-2 border-sky-500'/>
+        <label htmlFor="gitetway">SetTime:</label>
+        <input
+          id="gitetway"
+          value={inputData}
+          onInput={(e) => setInput((e.target as HTMLInputElement).value)}
+          className="ml-2 border-solid border-2 border-sky-500"
+        />
       </Modal>
       <div className="w-10/12" onClick={() => props.handleIdSensor(props.id)}>
-        <h1>{props.name}</h1>
-        <span>Pin: </span>
-        <span>{handlePin()}%</span>
+        <div className="flex items-center">
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 44 44"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="44" height="44" rx="8" fill="#F4EFFF" />
+            <g clipPath="url(#clip0_3_102)">
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M26.6578 18.4398C26.7942 18.4058 26.9305 18.4398 27.0328 18.5418C27.135 18.6438 27.1691 18.7798 27.101 18.9498L21.3063 33.3642C21.2722 33.5002 21.1358 33.5682 20.9995 33.5682H20.8972C20.7268 33.5342 20.6245 33.3642 20.6586 33.1942L22.4311 23.2673L16.9773 24.2532C16.875 24.2532 16.7387 24.2192 16.6705 24.1512C16.6023 24.0492 16.5682 23.9472 16.5682 23.8452L17.9317 13.4424C17.9658 13.2724 18.1021 13.1364 18.2726 13.1364H23.5219C23.6241 13.1364 23.7264 13.1704 23.7946 13.2724C23.8627 13.3744 23.8627 13.4763 23.8287 13.5783L21.3403 20.3096L26.6578 18.4398ZM23.1812 22.8593L21.92 29.9985L26.1808 19.3237L20.8974 21.1595C20.7952 21.2275 20.6588 21.1935 20.5566 21.0915C20.4884 21.0235 20.4543 20.8875 20.4884 20.7515L23.0449 13.8163H18.5796L17.2843 23.4372L22.7722 22.4513H22.8404C22.9426 22.4513 23.0108 22.4853 23.079 22.5533C23.1812 22.6213 23.2153 22.7573 23.1812 22.8593Z"
+                fill="#7A40F2"
+              />
+              <path
+                d="M26.6578 18.4398L26.6335 18.3424L26.6247 18.3455L26.6578 18.4398ZM27.101 18.9498L27.1937 18.9871L27.1938 18.987L27.101 18.9498ZM21.3063 33.3642L21.2126 33.3266L21.2093 33.3399L21.3063 33.3642ZM20.8972 33.5682L20.8777 33.6663L20.8873 33.6682H20.8972V33.5682ZM20.6586 33.1942L20.7567 33.2139L20.7571 33.2118L20.6586 33.1942ZM22.4311 23.2673L22.5296 23.2849L22.5548 23.1433L22.4133 23.1689L22.4311 23.2673ZM16.9773 24.2532V24.3532H16.9862L16.9951 24.3516L16.9773 24.2532ZM16.6705 24.1512L16.5874 24.2068L16.5929 24.215L16.5999 24.222L16.6705 24.1512ZM16.5682 23.8452L16.4682 23.8321V23.8452H16.5682ZM17.9317 13.4424L17.8334 13.4226L17.8325 13.4294L17.9317 13.4424ZM23.7946 13.2724L23.7114 13.3279L23.7946 13.2724ZM23.8287 13.5783L23.9225 13.613L23.9235 13.61L23.8287 13.5783ZM21.3403 20.3096L21.2465 20.2749L21.1728 20.4745L21.3735 20.404L21.3403 20.3096ZM21.92 29.9985L21.8215 29.9811L22.0129 30.0356L21.92 29.9985ZM23.1812 22.8593L23.0864 22.8276L23.084 22.8346L23.0827 22.8419L23.1812 22.8593ZM26.1808 19.3237L26.2737 19.3607L26.3549 19.1573L26.148 19.2292L26.1808 19.3237ZM20.8974 21.1595L20.8646 21.065L20.8526 21.0692L20.8421 21.0762L20.8974 21.1595ZM20.5566 21.0915L20.6272 21.0207L20.5566 21.0915ZM20.4884 20.7515L20.394 20.7167L20.3914 20.7272L20.4884 20.7515ZM23.0449 13.8163L23.1387 13.8508L23.1883 13.7163H23.0449V13.8163ZM18.5796 13.8163V13.7163H18.4921L18.4804 13.8029L18.5796 13.8163ZM17.2843 23.4372L17.1852 23.4239L17.1668 23.5599L17.3019 23.5357L17.2843 23.4372ZM22.7722 22.4513V22.3513H22.7633L22.7545 22.3529L22.7722 22.4513ZM23.079 22.5533L23.0083 22.6241L23.0154 22.6311L23.0236 22.6366L23.079 22.5533ZM27.1034 18.471C26.9752 18.3432 26.8025 18.3007 26.6336 18.3428L26.682 18.5368C26.7858 18.511 26.8858 18.5364 26.9622 18.6126L27.1034 18.471ZM27.1938 18.987C27.2335 18.888 27.246 18.792 27.2291 18.7018C27.212 18.6113 27.1667 18.5342 27.1034 18.471L26.9622 18.6126C27.0011 18.6514 27.024 18.6933 27.0325 18.7388C27.0411 18.7845 27.0366 18.8416 27.0081 18.9125L27.1938 18.987ZM21.399 33.4015L27.1937 18.9871L27.0082 18.9125L21.2135 33.3269L21.399 33.4015ZM20.9995 33.6682C21.1614 33.6682 21.3537 33.586 21.4033 33.3885L21.2093 33.3399C21.1906 33.4144 21.1102 33.4682 20.9995 33.4682V33.6682ZM20.8972 33.6682H20.9995V33.4682H20.8972V33.6682ZM20.5606 33.1746C20.5167 33.3935 20.6479 33.6204 20.8777 33.6663L20.9168 33.4701C20.8057 33.448 20.7324 33.335 20.7567 33.2139L20.5606 33.1746ZM22.3327 23.2497L20.5602 33.1767L20.7571 33.2118L22.5296 23.2849L22.3327 23.2497ZM16.9951 24.3516L22.4489 23.3657L22.4133 23.1689L16.9595 24.1548L16.9951 24.3516ZM16.5999 24.222C16.65 24.272 16.7184 24.3038 16.7818 24.3233C16.8466 24.3432 16.9161 24.3532 16.9773 24.3532V24.1532C16.9362 24.1532 16.8864 24.1462 16.8404 24.1321C16.7931 24.1176 16.7591 24.0984 16.7411 24.0804L16.5999 24.222ZM16.4682 23.8452C16.4682 23.9707 16.5105 24.0917 16.5874 24.2068L16.7536 24.0956C16.6942 24.0067 16.6682 23.9237 16.6682 23.8452H16.4682ZM17.8325 13.4294L16.4691 23.8322L16.6674 23.8582L18.0308 13.4553L17.8325 13.4294ZM18.2726 13.0364C18.0444 13.0364 17.875 13.2166 17.8336 13.4227L18.0297 13.462C18.0566 13.3281 18.1598 13.2364 18.2726 13.2364V13.0364ZM23.5219 13.0364H18.2726V13.2364H23.5219V13.0364ZM23.8777 13.2168C23.7858 13.0794 23.6471 13.0364 23.5219 13.0364V13.2364C23.6012 13.2364 23.6669 13.2614 23.7114 13.3279L23.8777 13.2168ZM23.9235 13.61C23.9649 13.4861 23.967 13.3504 23.8777 13.2168L23.7114 13.3279C23.7585 13.3984 23.7606 13.4666 23.7338 13.5466L23.9235 13.61ZM21.4341 20.3443L23.9224 13.613L23.7349 13.5437L21.2465 20.2749L21.4341 20.3443ZM26.6247 18.3455L21.3072 20.2153L21.3735 20.404L26.691 18.5342L26.6247 18.3455ZM22.0185 30.0159L23.2797 22.8767L23.0827 22.8419L21.8215 29.9811L22.0185 30.0159ZM26.088 19.2866L21.8271 29.9615L22.0129 30.0356L26.2737 19.3607L26.088 19.2866ZM20.9303 21.2539L26.2137 19.4181L26.148 19.2292L20.8646 21.065L20.9303 21.2539ZM20.4859 21.1623C20.6073 21.2834 20.796 21.347 20.9528 21.2427L20.8421 21.0762C20.7943 21.1079 20.7103 21.1036 20.6272 21.0207L20.4859 21.1623ZM20.3914 20.7272C20.3511 20.8881 20.3868 21.0634 20.4859 21.1623L20.6272 21.0207C20.59 20.9836 20.5576 20.8869 20.5854 20.7758L20.3914 20.7272ZM22.951 13.7817L20.3946 20.7169L20.5822 20.7861L23.1387 13.8508L22.951 13.7817ZM18.5796 13.9163H23.0449V13.7163H18.5796V13.9163ZM17.3834 23.4506L18.6787 13.8296L18.4804 13.8029L17.1852 23.4239L17.3834 23.4506ZM22.7545 22.3529L17.2666 23.3388L17.3019 23.5357L22.7899 22.5498L22.7545 22.3529ZM22.8404 22.3513H22.7722V22.5513H22.8404V22.3513ZM23.1496 22.4825C23.1096 22.4426 23.0656 22.4087 23.013 22.3854C22.9599 22.3619 22.9031 22.3513 22.8404 22.3513V22.5513C22.8799 22.5513 22.9083 22.5578 22.9319 22.5683C22.956 22.5789 22.9802 22.596 23.0083 22.6241L23.1496 22.4825ZM23.2761 22.891C23.3228 22.7513 23.2785 22.5659 23.1343 22.47L23.0236 22.6366C23.0839 22.6767 23.1079 22.7633 23.0864 22.8276L23.2761 22.891Z"
+                fill="#7A40F2"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_3_102">
+                <rect
+                  width="24"
+                  height="24"
+                  fill="white"
+                  transform="translate(10 10)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+          <div className="flex flex-col ml-4">
+            <span>{props.name}</span>
+            <span>Pin: {handlePin()}%</span>
+          </div>
+        </div>
         {/* <div>
           <span>Thời gian cập nhập: </span>
           <span>Time reset</span>
